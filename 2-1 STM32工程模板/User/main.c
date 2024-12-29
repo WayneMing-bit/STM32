@@ -11,6 +11,7 @@ int main(void) {
 		*/
 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
 	
+		// GPIO¿âº¯Êý²Ù×÷
 		GPIO_InitTypeDef GPIO_InitStruct;
 		GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;
 		GPIO_InitStruct.GPIO_Pin = GPIO_Pin_13;
