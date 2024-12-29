@@ -87,7 +87,7 @@ Section Cross References
     stm32f10x_wwdg.o(i.WWDG_DeInit) refers to stm32f10x_rcc.o(i.RCC_APB1PeriphResetCmd) for RCC_APB1PeriphResetCmd
     main.o(i.main) refers to stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
     main.o(i.main) refers to stm32f10x_gpio.o(i.GPIO_Init) for GPIO_Init
-    main.o(i.main) refers to stm32f10x_gpio.o(i.GPIO_SetBits) for GPIO_SetBits
+    main.o(i.main) refers to stm32f10x_gpio.o(i.GPIO_ResetBits) for GPIO_ResetBits
     __main.o(!!!main) refers to __rtentry.o(.ARM.Collect$$rtentry$$00000000) for __rt_entry
     __rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to __rtentry2.o(.ARM.Collect$$rtentry$$0000000A) for __rt_entry_li
     __rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to __rtentry2.o(.ARM.Collect$$rtentry$$0000000D) for __rt_entry_main
@@ -386,7 +386,7 @@ Removing Unused input sections from the image.
     Removing stm32f10x_gpio.o(i.GPIO_ReadInputDataBit), (18 bytes).
     Removing stm32f10x_gpio.o(i.GPIO_ReadOutputData), (8 bytes).
     Removing stm32f10x_gpio.o(i.GPIO_ReadOutputDataBit), (18 bytes).
-    Removing stm32f10x_gpio.o(i.GPIO_ResetBits), (4 bytes).
+    Removing stm32f10x_gpio.o(i.GPIO_SetBits), (4 bytes).
     Removing stm32f10x_gpio.o(i.GPIO_StructInit), (16 bytes).
     Removing stm32f10x_gpio.o(i.GPIO_Write), (4 bytes).
     Removing stm32f10x_gpio.o(i.GPIO_WriteBit), (10 bytes).
@@ -809,7 +809,7 @@ Image Symbol Table
     i.BusFault_Handler                       0x08000226   Section        0  stm32f10x_it.o(i.BusFault_Handler)
     i.DebugMon_Handler                       0x0800022a   Section        0  stm32f10x_it.o(i.DebugMon_Handler)
     i.GPIO_Init                              0x0800022c   Section        0  stm32f10x_gpio.o(i.GPIO_Init)
-    i.GPIO_SetBits                           0x08000342   Section        0  stm32f10x_gpio.o(i.GPIO_SetBits)
+    i.GPIO_ResetBits                         0x08000342   Section        0  stm32f10x_gpio.o(i.GPIO_ResetBits)
     i.HardFault_Handler                      0x08000346   Section        0  stm32f10x_it.o(i.HardFault_Handler)
     i.MemManage_Handler                      0x0800034a   Section        0  stm32f10x_it.o(i.MemManage_Handler)
     i.NMI_Handler                            0x0800034e   Section        0  stm32f10x_it.o(i.NMI_Handler)
@@ -975,7 +975,7 @@ Image Symbol Table
     __semihosting_library_function           0x08000227   Thumb Code     0  indicate_semi.o(.text)
     DebugMon_Handler                         0x0800022b   Thumb Code     2  stm32f10x_it.o(i.DebugMon_Handler)
     GPIO_Init                                0x0800022d   Thumb Code   278  stm32f10x_gpio.o(i.GPIO_Init)
-    GPIO_SetBits                             0x08000343   Thumb Code     4  stm32f10x_gpio.o(i.GPIO_SetBits)
+    GPIO_ResetBits                           0x08000343   Thumb Code     4  stm32f10x_gpio.o(i.GPIO_ResetBits)
     HardFault_Handler                        0x08000347   Thumb Code     4  stm32f10x_it.o(i.HardFault_Handler)
     MemManage_Handler                        0x0800034b   Thumb Code     4  stm32f10x_it.o(i.MemManage_Handler)
     NMI_Handler                              0x0800034f   Thumb Code     2  stm32f10x_it.o(i.NMI_Handler)
@@ -1063,7 +1063,7 @@ Memory Map of the image
     0x08000226   0x08000226   0x00000004   Code   RO         3208    i.BusFault_Handler  stm32f10x_it.o
     0x0800022a   0x0800022a   0x00000002   Code   RO         3209    i.DebugMon_Handler  stm32f10x_it.o
     0x0800022c   0x0800022c   0x00000116   Code   RO         1347    i.GPIO_Init         stm32f10x_gpio.o
-    0x08000342   0x08000342   0x00000004   Code   RO         1355    i.GPIO_SetBits      stm32f10x_gpio.o
+    0x08000342   0x08000342   0x00000004   Code   RO         1354    i.GPIO_ResetBits    stm32f10x_gpio.o
     0x08000346   0x08000346   0x00000004   Code   RO         3210    i.HardFault_Handler  stm32f10x_it.o
     0x0800034a   0x0800034a   0x00000004   Code   RO         3211    i.MemManage_Handler  stm32f10x_it.o
     0x0800034e   0x0800034e   0x00000002   Code   RO         3212    i.NMI_Handler       stm32f10x_it.o
@@ -1102,13 +1102,13 @@ Image component sizes
         56          6          0          0          0        475   main.o
          0          0          0          0          0     201708   misc.o
         64         26        236          0       1536        796   startup_stm32f10x_md.o
-       282          0          0          0          0      10703   stm32f10x_gpio.o
+       282          0          0          0          0      10705   stm32f10x_gpio.o
         26          0          0          0          0       3746   stm32f10x_it.o
         32          6          0          0          0        537   stm32f10x_rcc.o
        328         28          0          0          0      10189   system_stm32f10x.o
 
     ----------------------------------------------------------------------
-       794         66        252          0       1536     232726   Object Totals
+       794         66        252          0       1536     232728   Object Totals
          0          0         16          0          0          0   (incl. Generated)
          6          0          0          0          0          0   (incl. Padding)
 
@@ -1156,8 +1156,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      1044         82        252          0       1632     232406   Grand Totals
-      1044         82        252          0       1632     232406   ELF Image Totals
+      1044         82        252          0       1632     232408   Grand Totals
+      1044         82        252          0       1632     232408   ELF Image Totals
       1044         82        252          0          0          0   ROM Totals
 
 ==============================================================================
